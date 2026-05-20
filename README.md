@@ -174,9 +174,9 @@ npm run dev
 ---
 
 ## 👤 Author
-**Akshat Gupta**
+**Uttam Kumar**
 *Software Architect & Logistics Engineer*
-[GitHub](https://github.com/Akshatgupta000) | [LinkedIn](https://www.linkedin.com/in/akshatgupta000/)
+[GitHub](https://github.com/Uttam222) | [LinkedIn](https://www.linkedin.com/in/uttam1-kumar/)
 
 ---
 *Built with precision for the next generation of logistics.*
