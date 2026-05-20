@@ -1,0 +1,646 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #A3FF3F;
+  --color-dark: #0F0F0F;
+  --color-bg-soft: #F5F5F5;
+  --color-card: #FFFFFF;
+  --color-text-secondary: #6B7280;
+
+  --font-sans: "Outfit", "Inter", system-ui, sans-serif;
+  
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+
+  --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+  --shadow-neon: 0 0 20px rgba(163, 255, 63, 0.2);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--color-bg-soft);
+  font-family: var(--font-sans);
+  color: var(--color-dark);
+  @apply antialiased;
+}
+
+.dark body {
+  background-color: var(--color-dark);
+  color: white;
+}
+
+#root {
+  height: 100%;
+  min-height: 100%;
+}
+
+.leaflet-container {
+  z-index: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Order Marker Animations */
+.custom-marker-order-container {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Highlighted Vehicle Marker */
+.custom-marker-vehicle--highlighted {
+  background: transparent !important;
+  border: none !important;
+}
+
+.vehicle-highlight-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.vehicle-highlight-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid;
+  animation: vehicle-ring-pulse 1.5s ease-in-out infinite;
+}
+
+.vehicle-highlight-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid white;
+  color: white;
+  z-index: 2;
+  animation: vehicle-body-bounce 2s ease-in-out infinite;
+}
+
+@keyframes vehicle-ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.25); opacity: 0.2; }
+}
+
+@keyframes vehicle-body-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.order-pin-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.order-pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  animation: marker-bounce 1s infinite ease-in-out;
+  position: relative;
+  z-index: 2;
+}
+
+.order-pulse {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  animation: marker-pulse 1.5s infinite ease-out;
+  z-index: 1;
+}
+
+@keyframes marker-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes marker-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Custom Scrollbar - Hidden but functional */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Visible Scrollbar for specific sections */
+.custom-scrollbar-visible::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar-visible::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar-visible::-webkit-scrollbar-thumb {
+  background: rgba(163, 255, 63, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: rgba(163, 255, 63, 0.4);
+}
+
+.dark .custom-scrollbar-visible::-webkit-scrollbar-thumb {
+  background: rgba(163, 255, 63, 0.3);
+}
+
+.custom-scrollbar-visible {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(163, 255, 63, 0.3) transparent;
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    text-shadow: 0 0 4px rgba(163, 255, 63, 0.4);
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(163, 255, 63, 0.8), 0 0 20px rgba(163, 255, 63, 0.4);
+    opacity: 0.7;
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 1.5s infinite ease-in-out;
+  color: #A3FF3F !important;
+}
+
+/* ─── iOS Calendar Picker ─── */
+.calendar-picker {
+  background: var(--color-card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 2px 8px -1px rgba(0, 0, 0, 0.06);
+  font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dark .calendar-picker {
+  background: var(--color-dark);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 8px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* Mini variant — for inline modal usage */
+.calendar-picker--mini {
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-picker--mini .cal-header {
+  padding: 6px 4px 2px;
+}
+
+.calendar-picker--mini .cal-title {
+  font-size: 11px;
+  padding: 2px 6px;
+}
+
+.calendar-picker--mini .cal-nav-btn {
+  width: 22px;
+  height: 22px;
+}
+
+.calendar-picker--mini .cal-nav-btn svg {
+  width: 5px;
+  height: 9px;
+}
+
+.calendar-picker--mini .cal-weekdays {
+  padding: 0 3px;
+}
+
+.calendar-picker--mini .cal-weekday-label {
+  font-size: 8px;
+  padding: 1px 0;
+}
+
+.calendar-picker--mini .cal-grid {
+  padding: 0 3px 3px;
+  gap: 0;
+}
+
+.calendar-picker--mini .cal-day {
+  height: 26px;
+  border-radius: 6px;
+}
+
+.calendar-picker--mini .cal-day-num {
+  font-size: 11px;
+}
+
+.calendar-picker--mini .cal-today-dot {
+  bottom: 1px;
+  width: 2.5px;
+  height: 2.5px;
+}
+
+/* Header */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 6px 4px;
+}
+
+.cal-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #09090b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.cal-title:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.cal-title:active {
+  background: rgba(0, 0, 0, 0.08);
+  transform: scale(0.97);
+}
+
+.dark .cal-title {
+  color: #fafafa;
+}
+
+.dark .cal-title:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cal-nav-btn {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-weight: 600;
+}
+
+.cal-nav-btn:hover {
+  background: rgba(163, 255, 63, 0.08);
+}
+
+.cal-nav-btn:active {
+  background: rgba(163, 255, 63, 0.15);
+  transform: scale(0.9);
+}
+
+/* Weekday row */
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0 4px;
+  margin-bottom: 1px;
+}
+
+.cal-weekday-label {
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  color: #a1a1aa;
+  padding: 2px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Day grid */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  padding: 0 4px 4px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.cal-slide-left {
+  animation: calSlideLeft 0.22s ease-out;
+}
+
+.cal-slide-right {
+  animation: calSlideRight 0.22s ease-out;
+}
+
+@keyframes calSlideLeft {
+  0% { opacity: 0; transform: translateX(12px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes calSlideRight {
+  0% { opacity: 0; transform: translateX(-12px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Day cell */
+.cal-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.12s ease;
+  padding: 0;
+}
+
+.cal-day:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dark .cal-day:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cal-day:active {
+  transform: scale(0.88);
+}
+
+.cal-day-num {
+  font-size: 12px;
+  font-weight: 500;
+  color: #27272a;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.dark .cal-day-num {
+  color: #e4e4e7;
+}
+
+/* Outside month */
+.cal-day--outside .cal-day-num {
+  color: #d4d4d8;
+}
+
+.dark .cal-day--outside .cal-day-num {
+  color: #3f3f46;
+}
+
+/* Selected day — iOS red/blue pill */
+.cal-day--selected {
+  background: var(--color-primary) !important;
+  box-shadow:
+    0 2px 8px -1px rgba(163, 255, 63, 0.4),
+    0 0 0 1px rgba(163, 255, 63, 0.15);
+  transform: none;
+}
+
+.cal-day--selected:active {
+  transform: scale(0.92);
+  background: #92E639 !important;
+}
+
+.cal-day--selected .cal-day-num {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* Today dot indicator */
+.cal-day--today:not(.cal-day--selected) {
+  background: rgba(163, 255, 63, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(163, 255, 63, 0.3);
+}
+
+.cal-day--today .cal-day-num {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.dark .cal-day--today .cal-day-num {
+  color: #88D635;
+}
+
+.cal-today-dot {
+  position: absolute;
+  bottom: 2px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.dark .cal-today-dot {
+  background: #88D635;
+}
+
+.cal-day--selected .cal-today-dot {
+  background: white !important;
+}
+
+/* Days with orders — only orange dot */
+.cal-day--has-orders {
+  background: transparent;
+}
+
+.dark .cal-day--has-orders {
+  background: transparent;
+}
+
+.cal-order-dot {
+  position: absolute;
+  bottom: 2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f97316;
+  box-shadow: 0 0 4px rgba(249, 115, 22, 0.5);
+}
+
+.dark .cal-order-dot {
+  background: #fb923c;
+  box-shadow: 0 0 5px rgba(251, 146, 60, 0.4);
+}
+
+/* Show dot on selected day too */
+.cal-day--selected .cal-order-dot {
+  background: var(--color-card);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Footer */
+.cal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.015);
+}
+
+.dark .cal-footer {
+  border-top-color: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cal-footer-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #52525b;
+  letter-spacing: -0.01em;
+}
+
+.dark .cal-footer-label {
+  color: #a1a1aa;
+}
+
+.cal-footer-badge {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--color-primary);
+  background: rgba(163, 255, 63, 0.08);
+  padding: 1px 6px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+.dark .cal-footer-badge {
+  background: rgba(163, 255, 63, 0.12);
+  color: #88D635;
+}
+
+/* Calendar reveal animation */
+.animate-in {
+  animation: calReveal 0.25s ease-out;
+}
+
+@keyframes calReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Vehicle Mini Popup */
+.vehicle-mini-popup .leaflet-popup-content-wrapper {
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.1);
+  min-width: auto !important;
+}
+
+.dark .vehicle-mini-popup .leaflet-popup-content-wrapper {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.vehicle-mini-popup .leaflet-popup-content {
+  margin: 2px 4px !important;
+  line-height: 1;
+  width: auto !important;
+}
+
+.vehicle-mini-popup .leaflet-popup-tip-container {
+  width: 10px;
+  height: 5px;
+}
+
+.vehicle-mini-popup .leaflet-popup-tip {
+  background: #ffffff !important;
+  width: 6px;
+  height: 6px;
+}
+
+.dark .vehicle-mini-popup .leaflet-popup-tip {
+  background: #ffffff !important;
+}
+
+/* Fix text cursor showing up on interactive elements */
+button, 
+a, 
+select, 
+[role="button"],
+label {
+  cursor: pointer;
+}
+
+button *, a *, [role="button"] * {
+  cursor: inherit;
+}
+
+input:disabled, 
+button:disabled,
+select:disabled {
+  cursor: not-allowed !important;
+}
+
+
+/* Center Mini Popup */
+.center-mini-popup .leaflet-popup-content-wrapper {
+  background: #ffffff !important;
+  padding: 0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+  border: 1px solid #fff !important;
+}
+.center-mini-popup .leaflet-popup-content {
+  margin: 5px 6px !important;
+  line-height: 1 !important;
+  width: auto !important;
+}
+.center-mini-popup .leaflet-popup-tip {
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+}
